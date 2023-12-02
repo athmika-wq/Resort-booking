@@ -1,0 +1,46 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    background: #222222;
+    color: #ffffff;
+}
+main{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 80%;
+    display: grid;
+    grid-template-rows: repeat(2, 250px) 200px;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 7px;
+}
+.box1{background: url("view.jpg")no-repeat;background-size: cover;
+background-position: center;}
+
+.box2{
+    background: url("view2.jpg")no-repeat;background-size: cover;
+background-position: center;
+    grid-column: 2/-1;
+}
+
+.box3{background: url("whole.jpg")no-repeat;background-size: cover;
+background-position: center;}
+.box4{background: url("resort.jpg")no-repeat;background-size: cover;
+background-position: center;}
+
+.box5{
+    background: url("view.jpg")no-repeat;background-size: cover;
+background-position: center;
+    grid-row: 2/-1;
+    grid-column: 3/-1;
+}
+
+.box6{
+    background: url("palms.png")no-repeat;background-size: cover;
+background-position: center;
+    grid-column: 1/3;
+}

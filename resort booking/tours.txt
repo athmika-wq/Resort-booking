@@ -1,0 +1,44 @@
+import pandas as pd 
+from sklearn.metrics import confusion_matrix 
+from sklearn.model_selection import train_test_split 
+from sklearn.preprocessing import LabelEncoder 
+from sklearn.ensemble import RandomForestClassifier 
+from sklearn.metrics import precision_score, recall_score, accuracy_score, f1_score 
+# Read the CSV file into a DataFrame 
+df = pd.read_csv(r"C:\Users\ADMIN\Downloads\Responses_for_travel_preferences - Form responses 1.csv") 
+# Specify the columns to encodeS 
+columns_to_encode = df.columns.tolist() # Encode all columns in the dataset 
+# Initialize the label encoder 
+label_encoder = LabelEncoder() 
+# Encode the categorical columns 
+for column in columns_to_encode: 
+ df[column] = label_encoder.fit_transform(df[column].astype(str)) 
+# Assuming you have a target column called 'target' 
+X = df.drop('Which is your preferred travel season?', axis=1) 
+y = df['Which is your preferred travel season?'] 
+# Split the data into training and testing sets 
+X_train, X_test, y_train, y_test = train_test_split( 
+ X, y, test_size=0.2, random_state=42) 
+# Train a random forest classifier model 
+model = RandomForestClassifier(n_estimators=100, random_state=42) 
+model.fit(X_train, y_train) 
+# Predict labels for the test set 
+y_pred = model.predict(X_test) 
+# Calculate confusion matrix 
+confusion = confusion_matrix(y_test, y_pred) 
+# Calculate precision 
+# Calculate precision with zero_division parameter 
+precision = precision_score(y_test, y_pred, average='macro', zero_division=1) 
+# Calculate recall 
+recall = recall_score(y_test, y_pred, average='micro') 
+# Calculate error rate 
+error_rate = 1 - accuracy_score(y_test, y_pred) 
+# Calculate F-measure 
+f_measure = f1_score(y_test, y_pred, average='micro') 
+print("Accuracy:", accuracy_score(y_test, y_pred)) 
+print("Precision:", precision) 
+print("Recall:", recall) 
+print("Error Rate:", error_rate) 
+print("F-measure:", f_measure) 
+print("Confusion Matrix:") 
+print(confusion)

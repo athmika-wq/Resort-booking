@@ -1,0 +1,44 @@
+int inmate::removeinmate(int rrn)
+{
+    fstream fp;
+    char t;
+    int pos, flag = 0;
+    pos = searchinmate(rrn);
+    if (pos)
+    {
+        fp.open("inmate.txt", ios::in | ios::out);
+        if (fp)
+        {
+            pos -= 2;
+            fp.seekg(pos, ios::beg);
+            t = fp.get();
+            
+            while (t != '$' && pos != 0)
+            {
+                pos--;
+                fp.seekg(pos, ios::beg);
+                t = fp.get();
+            }
+            
+            if (pos != 0)
+                fp.seekp(pos + 2, ios::beg);
+            else
+                fp.seekp(pos, ios::beg);
+                
+            fp.put(mark);
+            flag = 1;
+            cout << "\nRecord has been deleted\n";
+        }
+        else
+        {
+            cout << "\nFailed to open the file\n";
+        }
+        
+        fp.close();
+    }
+    
+    if (!flag)
+        return 0;
+    else
+        return 1;
+}
